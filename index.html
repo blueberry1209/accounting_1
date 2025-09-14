@@ -46,34 +46,6 @@
             max-width: 400px;
         }
 
-        /* 교회 로고 스타일 */
-        .church-logo {
-            width: 80px;
-            height: 60px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .logo-blocks {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 2fr;
-            gap: 3px;
-            width: 40px;
-            height: 50px;
-        }
-
-        .logo-block {
-            border-radius: 4px;
-        }
-
-        .logo-block:nth-child(1) { background: #d4a5a0; }
-        .logo-block:nth-child(2) { background: #c8a048; }
-        .logo-block:nth-child(3) { background: #c8743a; }
-        .logo-block:nth-child(4) { background: #4a7c59; }
-
         .login-form h1 {
             color: #6b5b4f;
             margin-bottom: 15px;
@@ -143,7 +115,7 @@
         }
 
         .header h1 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             margin-bottom: 5px;
         }
@@ -385,8 +357,8 @@
 
         .transaction-amounts {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .transaction-amount {
@@ -400,6 +372,12 @@
 
         .transaction-amount.expense {
             color: #6b5a5a;
+        }
+
+        .transaction-balance-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .transaction-balance {
@@ -543,6 +521,11 @@
             padding: 20px;
             margin: 20px 0;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 기간 종료 잔액 금액 크기 조정 */
+        .final-balance {
+            font-size: 14px !important;
         }
 
         /* 설정 화면 */
@@ -1287,6 +1270,26 @@
 
             container.innerHTML = '';
 
+            // 이월 잔고 항목을 먼저 추가 (맨 위에)
+            if (settings.isSetup) {
+                const carryOverItem = document.createElement('div');
+                carryOverItem.className = 'transaction-item';
+                carryOverItem.innerHTML = `
+                    <div class="transaction-header">
+                        <div class="transaction-date">${settings.baseDate || '-'}</div>
+                        <div class="transaction-type">이월</div>
+                    </div>
+                    <div class="transaction-info">
+                        <div class="transaction-category">이월 잔고</div>
+                    </div>
+                    <div class="transaction-amounts">
+                        <div class="transaction-amount income">+${settings.carryOverBalance.toLocaleString()}원</div>
+                        <div class="transaction-balance">잔액: ${settings.carryOverBalance.toLocaleString()}원</div>
+                    </div>
+                `;
+                container.appendChild(carryOverItem);
+            }
+
             // 최신순 정렬
             allTransactions.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
 
@@ -1309,7 +1312,7 @@
                         <div class="transaction-amount ${transaction.type}">
                             ${transaction.type === 'income' ? '+' : '-'}${transaction.amount.toLocaleString()}원
                         </div>
-                        <div>
+                        <div class="transaction-balance-row">
                             <div class="transaction-balance">잔액: ${transaction.balance.toLocaleString()}원</div>
                             <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">삭제</button>
                         </div>
@@ -1317,64 +1320,35 @@
                 `;
                 container.appendChild(item);
             });
-
-            // 이월 잔고 항목 추가
-            if (settings.isSetup) {
-                const carryOverItem = document.createElement('div');
-                carryOverItem.className = 'transaction-item';
-                carryOverItem.innerHTML = `
-                    <div class="transaction-header">
-                        <div class="transaction-date">${settings.baseDate || '-'}</div>
-                        <div class="transaction-type">이월</div>
-                    </div>
-                    <div class="transaction-info">
-                        <div class="transaction-category">이월 잔고</div>
-                    </div>
-                    <div class="transaction-amounts">
-                        <div class="transaction-amount income">+${settings.carryOverBalance.toLocaleString()}원</div>
-                        <div class="transaction-balance">잔액: ${settings.carryOverBalance.toLocaleString()}원</div>
-                    </div>
-                `;
-                container.appendChild(carryOverItem);
-            }
         }
 
-        // 보고서 생성 (수정된 부분)
+        // 보고서 생성 (날짜 필터링 수정)
         function generateReport() {
             const startDate = document.getElementById('reportStartDate').value;
             const endDate = document.getElementById('reportEndDate').value;
 
             let filteredTransactions = transactions;
 
+            // 날짜 필터링 로직 수정
             if (startDate && endDate) {
                 filteredTransactions = transactions.filter(transaction => {
-                    const transactionDateTime = new Date(transaction.dateTime);
-                    const start = new Date(startDate);
-                    const end = new Date(endDate);
-                    end.setHours(23, 59, 59, 999);
-                    return transactionDateTime >= start && transactionDateTime <= end;
+                    const transactionDate = transaction.date;
+                    return transactionDate >= startDate && transactionDate <= endDate;
                 });
             } else if (startDate) {
                 filteredTransactions = transactions.filter(transaction => {
-                    const transactionDateTime = new Date(transaction.dateTime);
-                    const start = new Date(startDate);
-                    return transactionDateTime >= start;
+                    return transaction.date >= startDate;
                 });
             } else if (endDate) {
                 filteredTransactions = transactions.filter(transaction => {
-                    const transactionDateTime = new Date(transaction.dateTime);
-                    const end = new Date(endDate);
-                    end.setHours(23, 59, 59, 999);
-                    return transactionDateTime <= end;
+                    return transaction.date <= endDate;
                 });
             }
 
             let periodStartBalance = settings.carryOverBalance;
             if (startDate) {
                 const beforeStartTransactions = transactions.filter(transaction => {
-                    const transactionDateTime = new Date(transaction.dateTime);
-                    const start = new Date(startDate);
-                    return transactionDateTime < start;
+                    return transaction.date < startDate;
                 });
                 beforeStartTransactions.forEach(transaction => {
                     if (transaction.type === 'income') {
@@ -1424,7 +1398,7 @@
             tbody.innerHTML = '';
 
             // 수입 내역 요약
-            tbody.innerHTML += `<tr style="background: #f8f5f2;"><td colspan="2"><strong>📈 수입 내역 요약</strong></td></tr>`;
+            tbody.innerHTML += `<tr style="background: #f8f5f2;"><td colspan="2"><strong>수입 내역 요약</strong></td></tr>`;
             tbody.innerHTML += `<tr><td>이월 잔고</td><td style="text-align: right;">${periodStartBalance.toLocaleString()}원</td></tr>`;
             
             // 모든 수입 카테고리 표시 (0원도 표시)
@@ -1434,7 +1408,7 @@
             tbody.innerHTML += `<tr style="background: #e8f5e8;"><td><strong>총 수입</strong></td><td style="color: #5a6b5a; font-weight: 700; text-align: right;"><strong>${(periodStartBalance + totalIncomeInPeriod).toLocaleString()}원</strong></td></tr>`;
 
             // 지출 내역 요약
-            tbody.innerHTML += `<tr style="background: #f8f5f2;"><td colspan="2"><strong>💸 지출 내역 요약</strong></td></tr>`;
+            tbody.innerHTML += `<tr style="background: #f8f5f2;"><td colspan="2"><strong>지출 내역 요약</strong></td></tr>`;
             
             // 모든 지출 카테고리 표시 (0원도 표시)
             for (const category in expenseByCategory) {
@@ -1443,11 +1417,11 @@
             tbody.innerHTML += `<tr style="background: #f5e8e8;"><td><strong>총 지출</strong></td><td style="color: #6b5a5a; font-weight: 700; text-align: right;"><strong>${totalExpenseInPeriod.toLocaleString()}원</strong></td></tr>`;
 
             // 최종 결산
-            tbody.innerHTML += `<tr style="background: #f0f0f0;"><td colspan="2"><strong>📊 최종 결산</strong></td></tr>`;
+            tbody.innerHTML += `<tr style="background: #f0f0f0;"><td colspan="2"><strong>최종 결산</strong></td></tr>`;
             tbody.innerHTML += `<tr><td>기간 시작 잔액</td><td style="text-align: right;">${periodStartBalance.toLocaleString()}원</td></tr>`;
             tbody.innerHTML += `<tr><td>총 수입</td><td style="color: #5a6b5a; text-align: right;">+${totalIncomeInPeriod.toLocaleString()}원</td></tr>`;
             tbody.innerHTML += `<tr><td>총 지출</td><td style="color: #6b5a5a; text-align: right;">-${totalExpenseInPeriod.toLocaleString()}원</td></tr>`;
-            tbody.innerHTML += `<tr style="background: #e0e0e0; font-weight: 700;"><td><strong>기간 종료 잔액</strong></td><td style="text-align: right; font-size: 16px;"><strong>${periodEndBalance.toLocaleString()}원</strong></td></tr>`;
+            tbody.innerHTML += `<tr style="background: #e0e0e0; font-weight: 700;"><td><strong>기간 종료 잔액</strong></td><td style="text-align: right;"><strong class="final-balance">${periodEndBalance.toLocaleString()}원</strong></td></tr>`;
         }
 
         // 보고서 이미지 캡처 및 저장
