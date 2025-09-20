@@ -114,6 +114,11 @@
             z-index: 100;
         }
 
+        /* 헤더 숨김 처리 */
+        .header.hidden {
+            display: none !important;
+        }
+
         .header h1 {
             font-size: 18px;
             font-weight: 600;
@@ -1360,9 +1365,9 @@
             // 헤더 표시/숨김 제어
             const header = document.getElementById('appHeader');
             if (sectionName === 'transaction' || sectionName === 'history' || sectionName === 'report') {
-                header.style.display = 'none';
+                header.classList.add('hidden');
             } else {
-                header.style.display = 'block';
+                header.classList.remove('hidden');
             }
 
             // 보고서 섹션일 때 보고서 결과 숨기기
@@ -1892,6 +1897,3 @@
     </script>
 </body>
 </html>
- 
- 
-  
