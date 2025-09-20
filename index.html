@@ -849,7 +849,7 @@
     <!-- 메인 애플리케이션 -->
     <div id="mainApp" class="main-app">
         <!-- 헤더 -->
-        <div class="header">
+        <div class="header" id="appHeader">
             <h1><span id="headerDarakbangName">다락방</span> 회계앱</h1>
             <p>함께 지어져가는 주님의교회</p>
         </div>
@@ -1011,7 +1011,7 @@
             <div id="history" class="section">
                 <div class="card">
                     <h2>거래 내역</h2>
-                    <button onclick="captureHistory()" class="btn btn-primary" style="margin-bottom: 20px;">카톡 공유용 이미지 저장</button>
+                    <button onclick="captureHistory()" class="btn btn-primary" style="margin-bottom: 20px;">이미지 저장</button>
                     
                     <!-- 모바일 공유용 거래내역 캡처 영역 -->
                     <div class="mobile-share-container">
@@ -1085,7 +1085,7 @@
                     </div>
 
                     <div class="card">
-                        <button onclick="captureReport()" class="btn btn-primary">카톡 공유용 이미지 저장</button>
+                        <button onclick="captureReport()" class="btn btn-primary">이미지 저장</button>
                     </div>
                 </div>
             </div>
@@ -1331,7 +1331,7 @@
             updateSettingsDisplay();
         }
 
-        // 섹션 전환 (수정됨: 보고서 자동 생성 제거)
+        // 섹션 전환 (수정됨: 보고서 자동 생성 제거 + 헤더 표시/숨김)
         function showSection(sectionName) {
             if (!settings.isSetup && sectionName !== 'setup') {
                 showAlert('먼저 초기 설정을 완료해주세요.');
@@ -1355,6 +1355,14 @@
             );
             if (activeNavItem) {
                 activeNavItem.classList.add('active');
+            }
+
+            // 헤더 표시/숨김 제어
+            const header = document.getElementById('appHeader');
+            if (sectionName === 'transaction' || sectionName === 'history' || sectionName === 'report') {
+                header.style.display = 'none';
+            } else {
+                header.style.display = 'block';
             }
 
             // 보고서 섹션일 때 보고서 결과 숨기기
@@ -1884,3 +1892,6 @@
     </script>
 </body>
 </html>
+ 
+ 
+  
