@@ -520,169 +520,178 @@
             color: #6b5b4f;
         }
 
-        /* A4 용지 스타일 */
-        .a4-container {
-            width: 210mm;
-            max-width: 100%;
+        /* 모바일 카톡 공유용 레이아웃 */
+        .mobile-share-container {
+            max-width: 400px;
             margin: 0 auto;
             background: white;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
         }
 
-        .a4-page {
-            width: 210mm;
-            min-height: 297mm;
-            padding: 20mm;
+        .mobile-share-page {
+            padding: 20px;
             background: white;
-            font-size: 11pt;
-            line-height: 1.4;
+            font-size: 14px;
+            line-height: 1.5;
             color: #333;
-            box-sizing: border-box;
         }
 
-        .a4-header {
+        .mobile-header {
             text-align: center;
-            margin-bottom: 15mm;
-            padding-bottom: 10mm;
-            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
         }
 
-        .a4-header h2 {
-            font-size: 18pt;
+        .mobile-header h2 {
+            font-size: 20px;
             color: #2c3e50;
-            margin-bottom: 8mm;
+            margin-bottom: 12px;
             font-weight: 700;
         }
 
-        .a4-header .meta-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5mm;
-            font-size: 10pt;
+        .mobile-meta {
+            font-size: 12px;
             color: #666;
+            line-height: 1.4;
         }
 
-        .a4-content {
-            margin-bottom: 10mm;
+        .mobile-meta div {
+            margin-bottom: 4px;
         }
 
-        .a4-table {
+        .mobile-content {
+            margin-bottom: 15px;
+        }
+
+        .mobile-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 8mm;
-            font-size: 10pt;
+            margin-bottom: 15px;
+            font-size: 13px;
         }
 
-        .a4-table th {
+        .mobile-table th {
             background: #f8f9fa;
-            padding: 3mm;
+            padding: 8px 6px;
             border: 1px solid #dee2e6;
             font-weight: 600;
             text-align: left;
+            font-size: 12px;
         }
 
-        .a4-table td {
-            padding: 2.5mm 3mm;
+        .mobile-table td {
+            padding: 6px;
             border: 1px solid #dee2e6;
             vertical-align: top;
+            font-size: 12px;
         }
 
-        .a4-table .amount-cell {
+        .mobile-table .amount-cell {
             text-align: right;
             font-weight: 600;
         }
 
-        .a4-table .income-amount {
+        .mobile-table .income-amount {
             color: #28a745;
         }
 
-        .a4-table .expense-amount {
+        .mobile-table .expense-amount {
             color: #dc3545;
         }
 
-        .a4-table .section-header {
+        .mobile-table .section-header {
             background: #e9ecef;
             font-weight: 700;
         }
 
-        .a4-table .total-row {
+        .mobile-table .total-row {
             background: #f1f3f4;
             font-weight: 700;
         }
 
-        .a4-transaction-item {
+        .mobile-transaction-item {
             border: 1px solid #e0e0e0;
-            margin-bottom: 3mm;
-            padding: 3mm;
-            border-radius: 2mm;
-            page-break-inside: avoid;
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
         }
 
-        .a4-transaction-header {
+        .mobile-transaction-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2mm;
-            font-size: 9pt;
+            margin-bottom: 6px;
+            font-size: 11px;
         }
 
-        .a4-transaction-type {
+        .mobile-transaction-type {
             background: #f8f9fa;
-            padding: 1mm 2mm;
-            border-radius: 3px;
-            font-size: 8pt;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
             font-weight: 600;
         }
 
-        .a4-transaction-type.income {
+        .mobile-transaction-type.income {
             background: #d4edda;
             color: #155724;
         }
 
-        .a4-transaction-type.expense {
+        .mobile-transaction-type.expense {
             background: #f8d7da;
             color: #721c24;
         }
 
-        .a4-transaction-info {
-            margin-bottom: 2mm;
+        .mobile-transaction-info {
+            margin-bottom: 6px;
         }
 
-        .a4-transaction-category {
+        .mobile-transaction-category {
             font-weight: 600;
-            font-size: 10pt;
+            font-size: 13px;
+            margin-bottom: 2px;
         }
 
-        .a4-transaction-description {
-            font-size: 9pt;
+        .mobile-transaction-description {
+            font-size: 11px;
             color: #666;
-            margin-top: 1mm;
         }
 
-        .a4-transaction-amounts {
+        .mobile-transaction-amounts {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 10pt;
+            font-size: 12px;
         }
 
-        .a4-transaction-amount {
+        .mobile-transaction-amount {
             font-weight: 700;
         }
 
-        .a4-transaction-amount.income {
+        .mobile-transaction-amount.income {
             color: #28a745;
         }
 
-        .a4-transaction-amount.expense {
+        .mobile-transaction-amount.expense {
             color: #dc3545;
         }
 
-        .a4-balance {
-            font-size: 9pt;
+        .mobile-balance {
+            font-size: 11px;
             color: #666;
+        }
+
+        /* 기존 A4 스타일 제거하고 모바일 스타일로 대체 */
+        .capture-container {
+            display: none;
+        }
+
+        .capture-container.mobile-view {
+            display: block;
         }
 
         /* 보고서 캡처 영역 */
@@ -713,15 +722,6 @@
         .export-buttons .btn {
             flex: 1;
             margin-bottom: 0;
-        }
-
-        @media print {
-            .a4-page {
-                box-shadow: none;
-                margin: 0;
-                width: 210mm;
-                height: 297mm;
-            }
         }
 
         /* 기간 종료 잔액 금액 크기 조정 */
@@ -1011,17 +1011,14 @@
             <div id="history" class="section">
                 <div class="card">
                     <h2>거래 내역</h2>
-                    <div class="export-buttons">
-                        <button onclick="captureHistoryPDF()" class="btn btn-success">PDF로 저장</button>
-                        <button onclick="captureHistory()" class="btn btn-primary">이미지로 저장</button>
-                    </div>
+                    <button onclick="captureHistory()" class="btn btn-primary" style="margin-bottom: 20px;">카톡 공유용 이미지 저장</button>
                     
-                    <!-- A4 크기 거래내역 캡처 영역 -->
-                    <div class="a4-container">
-                        <div class="a4-page" id="historyCapture">
-                            <div class="a4-header">
+                    <!-- 모바일 공유용 거래내역 캡처 영역 -->
+                    <div class="mobile-share-container">
+                        <div class="mobile-share-page" id="historyCapture">
+                            <div class="mobile-header">
                                 <h2>거래 내역</h2>
-                                <div class="meta-info">
+                                <div class="mobile-meta">
                                     <div><strong>다락방:</strong> <span id="historyDarakbangName">-</span></div>
                                     <div><strong>출력일:</strong> <span id="historyDate">-</span></div>
                                     <div><strong>담당자:</strong> <span id="historyManager">-</span></div>
@@ -1029,7 +1026,7 @@
                                 </div>
                             </div>
                             
-                            <div class="a4-content" id="transactionHistory">
+                            <div class="mobile-content" id="transactionHistory">
                                 <!-- 거래 내역이 여기에 동적으로 생성됩니다 -->
                             </div>
                         </div>
@@ -1059,12 +1056,12 @@
 
                 <!-- 보고서 결과 영역 -->
                 <div class="report-result" id="reportResult">
-                    <!-- A4 크기 보고서 캡처 영역 -->
-                    <div class="a4-container">
-                        <div class="a4-page" id="reportCapture">
-                            <div class="a4-header">
+                    <!-- 모바일 공유용 보고서 캡처 영역 -->
+                    <div class="mobile-share-container">
+                        <div class="mobile-share-page" id="reportCapture">
+                            <div class="mobile-header">
                                 <h2>회계 보고서</h2>
-                                <div class="meta-info">
+                                <div class="mobile-meta">
                                     <div><strong>다락방:</strong> <span id="reportDarakbangName">-</span></div>
                                     <div><strong>보고서 기간:</strong> <span id="reportPeriod">전체</span></div>
                                     <div><strong>담당자:</strong> <span id="reportManager">-</span></div>
@@ -1072,12 +1069,12 @@
                                 </div>
                             </div>
 
-                            <div class="a4-content">
-                                <table class="a4-table" id="consolidatedReport">
+                            <div class="mobile-content">
+                                <table class="mobile-table" id="consolidatedReport">
                                     <thead>
                                         <tr>
-                                            <th style="width: 70%;">항목</th>
-                                            <th style="width: 30%; text-align: right;">금액</th>
+                                            <th style="width: 65%;">항목</th>
+                                            <th style="width: 35%; text-align: right;">금액</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1088,10 +1085,7 @@
                     </div>
 
                     <div class="card">
-                        <div class="export-buttons">
-                            <button onclick="captureReportPDF()" class="btn btn-success">PDF로 저장</button>
-                            <button onclick="captureReport()" class="btn btn-primary">이미지로 저장</button>
-                        </div>
+                        <button onclick="captureReport()" class="btn btn-primary">카톡 공유용 이미지 저장</button>
                     </div>
                 </div>
             </div>
@@ -1124,9 +1118,8 @@
         </div>
     </div>
 
-    <!-- HTML2Canvas 및 jsPDF 라이브러리 -->
+    <!-- HTML2Canvas 라이브러리 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script>
         // 전역 변수
@@ -1532,18 +1525,18 @@
             // 이월 잔고 항목을 먼저 추가 (맨 위에)
             if (settings.isSetup) {
                 const carryOverItem = document.createElement('div');
-                carryOverItem.className = 'a4-transaction-item';
+                carryOverItem.className = 'mobile-transaction-item';
                 carryOverItem.innerHTML = `
-                    <div class="a4-transaction-header">
+                    <div class="mobile-transaction-header">
                         <div class="transaction-date">${settings.baseDate || '-'}</div>
-                        <div class="a4-transaction-type">이월</div>
+                        <div class="mobile-transaction-type">이월</div>
                     </div>
-                    <div class="a4-transaction-info">
-                        <div class="a4-transaction-category">이월 잔고</div>
+                    <div class="mobile-transaction-info">
+                        <div class="mobile-transaction-category">이월 잔고</div>
                     </div>
-                    <div class="a4-transaction-amounts">
-                        <div class="a4-transaction-amount income">+${settings.carryOverBalance.toLocaleString()}원</div>
-                        <div class="a4-balance">잔액: ${settings.carryOverBalance.toLocaleString()}원</div>
+                    <div class="mobile-transaction-amounts">
+                        <div class="mobile-transaction-amount income">+${settings.carryOverBalance.toLocaleString()}원</div>
+                        <div class="mobile-balance">잔액: ${settings.carryOverBalance.toLocaleString()}원</div>
                     </div>
                 `;
                 container.appendChild(carryOverItem);
@@ -1554,26 +1547,26 @@
 
             allTransactions.forEach(transaction => {
                 const item = document.createElement('div');
-                item.className = 'a4-transaction-item';
+                item.className = 'mobile-transaction-item';
                 
                 item.innerHTML = `
-                    <div class="a4-transaction-header">
+                    <div class="mobile-transaction-header">
                         <div class="transaction-date">${transaction.date}</div>
-                        <div class="a4-transaction-type ${transaction.type}">
+                        <div class="mobile-transaction-type ${transaction.type}">
                             ${transaction.type === 'income' ? '입금' : '출금'}
                         </div>
                     </div>
-                    <div class="a4-transaction-info">
-                        <div class="a4-transaction-category">${transaction.category}</div>
-                        ${transaction.description ? `<div class="a4-transaction-description">${transaction.description}</div>` : ''}
+                    <div class="mobile-transaction-info">
+                        <div class="mobile-transaction-category">${transaction.category}</div>
+                        ${transaction.description ? `<div class="mobile-transaction-description">${transaction.description}</div>` : ''}
                     </div>
-                    <div class="a4-transaction-amounts">
-                        <div class="a4-transaction-amount ${transaction.type}">
+                    <div class="mobile-transaction-amounts">
+                        <div class="mobile-transaction-amount ${transaction.type}">
                             ${transaction.type === 'income' ? '+' : '-'}${transaction.amount.toLocaleString()}원
                         </div>
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <div class="a4-balance">잔액: ${transaction.balance.toLocaleString()}원</div>
-                            <button class="delete-btn" onclick="deleteTransaction(${transaction.id})" style="font-size: 8pt; padding: 1mm 2mm;">삭제</button>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <div class="mobile-balance">잔액: ${transaction.balance.toLocaleString()}원</div>
+                            <button class="delete-btn" onclick="deleteTransaction(${transaction.id})" style="font-size: 10px; padding: 2px 6px;">삭제</button>
                         </div>
                     </div>
                 `;
