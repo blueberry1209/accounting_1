@@ -597,6 +597,7 @@
         .mobile-table .amount-cell {
             text-align: right;
             font-weight: 600;
+            white-space: nowrap;
         }
 
         .mobile-table .income-amount {
@@ -653,6 +654,9 @@
 
         .mobile-transaction-info {
             margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .mobile-transaction-category {
@@ -664,17 +668,17 @@
         .mobile-transaction-description {
             font-size: 11px;
             color: #666;
+            margin-top: 2px;
         }
 
         .mobile-transaction-amounts {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-top: 4px;
             font-size: 12px;
         }
 
         .mobile-transaction-amount {
             font-weight: 700;
+            white-space: nowrap;
         }
 
         .mobile-transaction-amount.income {
@@ -688,6 +692,7 @@
         .mobile-balance {
             font-size: 11px;
             color: #666;
+            white-space: nowrap;
         }
 
         /* 기존 A4 스타일 제거하고 모바일 스타일로 대체 */
@@ -1545,10 +1550,12 @@
                         <div class="mobile-transaction-type">이월</div>
                     </div>
                     <div class="mobile-transaction-info">
-                        <div class="mobile-transaction-category">이월 잔고</div>
+                        <div>
+                            <div class="mobile-transaction-category">이월 잔고</div>
+                        </div>
+                        <div class="mobile-transaction-amount income">+${settings.carryOverBalance.toLocaleString()}원</div>
                     </div>
                     <div class="mobile-transaction-amounts">
-                        <div class="mobile-transaction-amount income">+${settings.carryOverBalance.toLocaleString()}원</div>
                         <div class="mobile-balance">잔액: ${settings.carryOverBalance.toLocaleString()}원</div>
                     </div>
                 `;
@@ -1570,17 +1577,17 @@
                         </div>
                     </div>
                     <div class="mobile-transaction-info">
-                        <div class="mobile-transaction-category">${transaction.category}</div>
-                        ${transaction.description ? `<div class="mobile-transaction-description">${transaction.description}</div>` : ''}
-                    </div>
-                    <div class="mobile-transaction-amounts">
+                        <div>
+                            <div class="mobile-transaction-category">${transaction.category}</div>
+                            ${transaction.description ? `<div class="mobile-transaction-description">${transaction.description}</div>` : ''}
+                        </div>
                         <div class="mobile-transaction-amount ${transaction.type}">
                             ${transaction.type === 'income' ? '+' : '-'}${transaction.amount.toLocaleString()}원
                         </div>
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <div class="mobile-balance">잔액: ${transaction.balance.toLocaleString()}원</div>
-                            <button class="delete-btn" onclick="deleteTransaction(${transaction.id})" style="font-size: 10px; padding: 2px 6px;">삭제</button>
-                        </div>
+                    </div>
+                    <div class="mobile-transaction-amounts">
+                        <div class="mobile-balance">잔액: ${transaction.balance.toLocaleString()}원</div>
+                        <button class="delete-btn" onclick="deleteTransaction(${transaction.id})" style="font-size: 10px; padding: 2px 6px;">삭제</button>
                     </div>
                 `;
                 container.appendChild(item);
